@@ -10,8 +10,10 @@ import {Provider} from 'react-redux';
 import reducer from './reducer'
 
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-let store = createStore(reducer)
+
+let store = createStore(reducer, composeWithDevTools())
 
 ReactDOM.render((
   <Provider store={store}>

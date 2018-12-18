@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const ListenerSignUpForm = (props) => {
   return (
@@ -9,6 +9,10 @@ const ListenerSignUpForm = (props) => {
       <br/>
       <label>
         Password: <input type="text" name="password" />
+      </label>
+      <br/>
+      <label>
+        Name: <input type="text" name="name" />
       </label>
       <br/>
       <input type="submit" value="Submit" />
