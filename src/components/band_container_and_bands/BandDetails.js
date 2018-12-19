@@ -53,11 +53,11 @@ class BandDetails extends Component {
     })
       .then(this.setState({isFollowing: true}))
       .then(resp => resp.json())
-      .then(favoriteObj => this.setState({specificFavoriteObject: favoriteObj}, () => console.log(this.state.specificFavoriteObject)))
+      .then(favoriteObj => this.setState({specificFavoriteObject: favoriteObj.favorite}, () => console.log(this.state.specificFavoriteObject)))
   }
 
   unfollow = () => {
-    fetch(favoritesAPI + `/${this.state.specificFavoriteObject.favorite.id}`, {
+    fetch(favoritesAPI + `/${this.state.specificFavoriteObject.id}`, {
       method: 'DELETE'
     })
       .then(this.setState({isFollowing: false}))
