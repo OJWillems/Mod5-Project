@@ -5,7 +5,9 @@ const defaultState = {
   // FIX THIS HARD CODE
 
   allBands: null, //{name: , isFav: true}
+  allFavorites: null,
   allListenerFavorites: null,
+
   selectedBand: null,
 
 }
@@ -15,6 +17,8 @@ const reducer = (state = defaultState, action) => {
     case "GET_ALL_BANDS":
       return {...state, allBands: action.payload}
     case "GET_ALL_FAVORITES":
+      return {...state, allFavorites: action.payload}
+    case "GET_ALL_LISTENER_FAVORITES":
       return {...state, allListenerFavorites: action.payload}
     // OnClick Band Selector
     case "SELECT_BAND":

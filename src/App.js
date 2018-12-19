@@ -8,12 +8,13 @@ import BandSignUpForm from './components/login_signup_screens/BandSignUpForm';
 import ListenerLogin from './components/login_signup_screens/ListenerLogin';
 import ListenerSignUpForm from './components/login_signup_screens/ListenerSignUpForm';
 
-import BandContainer from './components/band_container_and_bands/BandContainer'
-import BandDetails from './components/band_container_and_bands/BandDetails'
+import BandContainer from './components/band_container_and_bands/BandContainer';
+import BandDetails from './components/band_container_and_bands/BandDetails';
 
-const bandsAPI = 'http://localhost:4000/api/v1/bands'
-const listenersAPI = 'http://localhost:4000/api/v1/listeners'
-const listenerFavoritesAPI = 'http://localhost:4000/api/v1/listeners/1/favorites'
+const bandsAPI = 'http://localhost:4000/api/v1/bands';
+const listenersAPI = 'http://localhost:4000/api/v1/listeners';
+const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
+const listenerFavoritesAPI = 'http://localhost:4000/api/v1/listeners/1/favorites';
 
 class App extends Component {
 
@@ -34,8 +35,10 @@ class App extends Component {
       .then(bandResp => this.props.allBands(bandResp))
     fetch(listenersAPI)
       .then(resp => resp.json())
-      // .then(listenerResp => console.log(listenerResp.listeners[0]))
       .then(listenerResp => this.props.hardCodedListener(listenerResp))
+    fetch(favoritesAPI)
+      .then(resp => resp.json())
+      .then(favoritesResp => this.props.allFavorites(favoritesResp))
     fetch(listenerFavoritesAPI)
       .then(resp => resp.json())
       .then(favoritesResp => this.props.allListenerFavorites(favoritesResp))
@@ -152,9 +155,15 @@ const mapDispatchToProps = (dispatch) => {
         payload: listenerResp.listeners[0]
       })
     },
-    allListenerFavorites: (favoritesResp) => {
+    allFavorites: (favoritesResp) => {
       dispatch({
         type: "GET_ALL_FAVORITES",
+        payload: favoritesResp.favorites
+      })
+    },
+    allListenerFavorites: (favoritesResp) => {
+      dispatch({
+        type: "GET_ALL_LISTENER_FAVORITES",
         payload: favoritesResp.favorites
       })
     }
