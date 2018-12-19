@@ -26,7 +26,7 @@ class BandDetails extends Component {
   setSpecificFavoriteObjectState = () => {
     let specificFavoriteObject = null;
     let specificFavoriteObj = this.props.allFavorites.find((favoriteObj) => {
-      return favoriteObj.band_id === this.props.selectedBand.id && favoriteObj.listener_id === this.props.hardCodedListener.id
+      return favoriteObj.band_id === this.props.selectedBand.id && favoriteObj.listener_id === this.props.loggedInListener.id
     })
     if (specificFavoriteObj !== undefined) {
       specificFavoriteObject = specificFavoriteObj
@@ -34,9 +34,17 @@ class BandDetails extends Component {
     this.setState({specificFavoriteObject: specificFavoriteObject}, () => console.log(this.state.specificFavoriteObject))
   }
 
+  renderFollowButton = () => {
+    if (this.props.loggedInListener) {
+      return < FollowButton isFollowing={this.state.isFollowing} createNewFollow={this.createNewFollow} unfollow={this.unfollow} />
+    }
+  }
+
   componentDidMount(){
-    this.setIsFollowingState()
-    this.setSpecificFavoriteObjectState()
+    if (this.props.loggedInListener) {
+      this.setIsFollowingState()
+      this.setSpecificFavoriteObjectState()
+    }
   }
 
   createNewFollow = () => {
@@ -48,7 +56,7 @@ class BandDetails extends Component {
       },
       body: JSON.stringify({
         band_id: this.props.selectedBand.id,
-        listener_id: this.props.hardCodedListener.id,
+        listener_id: this.props.loggedInListener.id,
       })
     })
       .then(this.setState({isFollowing: true}))
@@ -70,7 +78,7 @@ class BandDetails extends Component {
       <div>
         <h1>{this.props.selectedBand.band_name}</h1>
         <p>{this.props.selectedBand.bio}</p>
-        < FollowButton isFollowing={this.state.isFollowing} createNewFollow={this.createNewFollow} unfollow={this.unfollow} />
+        {this.renderFollowButton()}
       </div>
     )
   }
@@ -80,7 +88,7 @@ class BandDetails extends Component {
 const mapStateToProps = (state) => {
   return {
     selectedBand: state.selectedBand,
-    hardCodedListener: state.hardCodedListener,
+    loggedInListener: state.loggedInListener,
     allFavorites: state.allFavorites,
     allListenerFavorites: state.allListenerFavorites
   }

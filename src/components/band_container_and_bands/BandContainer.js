@@ -9,6 +9,18 @@ class BandContainer extends Component {
     shouldDisplayFavorites: false,
   }
 
+  listenerFavoritesAPI = `http://localhost:4000/api/v1/listeners/${this.props.loggedInListener.id}/favorites`
+
+  getListenerFavorites = () => {
+    fetch(this.listenerFavoritesAPI)
+      .then(resp => resp.json())
+      .then(favoritesResp => this.props.setAllListenerFavorites(favoritesResp))
+  }
+
+  componentDidMount() {
+    this.getListenerFavorites();
+  }
+
   mapBands = () => {
     // loading spinner if null
     if (this.props.allBands !== null && this.props.allFavorites !==null) {
@@ -19,6 +31,7 @@ class BandContainer extends Component {
           )
         })
       } else if (this.state.shouldDisplayFavorites === true) {
+        // debugger
         return this.props.allListenerFavorites.map((band, idx) => {
           return(
             < Band key={idx} band={band} />
@@ -49,8 +62,20 @@ class BandContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     allBands: state.allBands,
-    allListenerFavorites: state.allListenerFavorites
+    allListenerFavorites: state.allListenerFavorites,
+    loggedInListener: state.loggedInListener
   }
 }
 
-export default connect(mapStateToProps)(BandContainer);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAllListenerFavorites: (favoritesResp) => {
+      dispatch({
+        type: "GET_ALL_LISTENER_FAVORITES",
+        payload: favoritesResp.favorites
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BandContainer);

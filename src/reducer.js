@@ -1,12 +1,17 @@
 const defaultState = {
   // FIX THIS HARD CODE
-  homeScreen: "listener home page",
-  hardCodedListener: null,
+  // homeScreen: "listener home page",
+  homeScreen: null,
+  // hardCodedListener: null,
   // FIX THIS HARD CODE
 
-  allBands: null, //{name: , isFav: true}
+  allBands: null,
+  allListeners: null,
   allFavorites: null,
   allListenerFavorites: null,
+
+  loggedInListener: null,
+  loggedInBand: null,
 
   selectedBand: null,
 
@@ -16,18 +21,40 @@ const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case "GET_ALL_BANDS":
       return {...state, allBands: action.payload}
+    case "GET_ALL_LISTENERS":
+      return {...state, allListeners: action.payload}
     case "GET_ALL_FAVORITES":
       return {...state, allFavorites: action.payload}
     case "GET_ALL_LISTENER_FAVORITES":
       return {...state, allListenerFavorites: action.payload}
-    // OnClick Band Selector
+
+    // Log In Listener:
+    case "LOG_IN_LISTENER":
+      return {
+        ...state,
+        loggedInListener: action.payload,
+        homeScreen: "listener home page"
+      }
+
+    // Log In Band:
+    case "LOG_IN_BAND":
+      return{
+        ...state,
+        loggedInBand: action.payload,
+        selectedBand: action.payload,
+        homeScreen: "band details page"
+      }
+
+
+
+    //////////////////PAGE RENDER CASES//////////////////
+    // OnClick Listener Page Band Selector
     case "SELECT_BAND":
       return {
         ...state,
         selectedBand: action.payload,
         homeScreen: "band details page"
       }
-
     // Band Login Screen:
     case "CHOOSE_BAND":
       return {...state, homeScreen: action.payload}
@@ -42,9 +69,7 @@ const reducer = (state = defaultState, action) => {
     case "NEW_LISTENER_HANDLER":
       return {...state, homeScreen: action.payload}
 
-    // Hard Code the Listener
-    case "GET_HARD_CODED_LISTENER":
-      return {...state, hardCodedListener: action.payload}
+
 
     default:
       return state

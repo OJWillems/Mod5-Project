@@ -14,7 +14,9 @@ import BandDetails from './components/band_container_and_bands/BandDetails';
 const bandsAPI = 'http://localhost:4000/api/v1/bands';
 const listenersAPI = 'http://localhost:4000/api/v1/listeners';
 const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
-const listenerFavoritesAPI = 'http://localhost:4000/api/v1/listeners/1/favorites';
+
+//YOU CAN'T FETCH TO THIS API UNTIL AFTER YOU'VE LOGGED IN
+// const listenerFavoritesAPI = `http://localhost:4000/api/v1/listeners/1/favorites`;
 
 class App extends Component {
 
@@ -35,13 +37,13 @@ class App extends Component {
       .then(bandResp => this.props.allBands(bandResp))
     fetch(listenersAPI)
       .then(resp => resp.json())
-      .then(listenerResp => this.props.hardCodedListener(listenerResp))
+      .then(listenersResp => this.props.allListeners(listenersResp))
     fetch(favoritesAPI)
       .then(resp => resp.json())
       .then(favoritesResp => this.props.allFavorites(favoritesResp))
-    fetch(listenerFavoritesAPI)
-      .then(resp => resp.json())
-      .then(favoritesResp => this.props.allListenerFavorites(favoritesResp))
+    // fetch(listenerFavoritesAPI)
+    //   .then(resp => resp.json())
+    //   .then(favoritesResp => this.props.allListenerFavorites(favoritesResp))
   }
 
   componentDidMount() {
@@ -113,7 +115,7 @@ class App extends Component {
         )
       case "listener home page":
         return (
-          <BandContainer allBands={this.state.allBands}/>
+          <BandContainer />
         )
       case "band details page":
         return(
@@ -137,7 +139,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    homeScreen: state.homeScreen
+    homeScreen: state.homeScreen,
+    loggedInListener: state.loggedInListener
   }
 }
 
@@ -149,21 +152,15 @@ const mapDispatchToProps = (dispatch) => {
         payload: bandsResp.bands
       })
     },
-    hardCodedListener: (listenerResp) => {
+    allListeners: (listenersResp) => {
       dispatch({
-        type: "GET_HARD_CODED_LISTENER",
-        payload: listenerResp.listeners[0]
+        type: "GET_ALL_LISTENERS",
+        payload: listenersResp.listeners
       })
     },
     allFavorites: (favoritesResp) => {
       dispatch({
         type: "GET_ALL_FAVORITES",
-        payload: favoritesResp.favorites
-      })
-    },
-    allListenerFavorites: (favoritesResp) => {
-      dispatch({
-        type: "GET_ALL_LISTENER_FAVORITES",
         payload: favoritesResp.favorites
       })
     }
