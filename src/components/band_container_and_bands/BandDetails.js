@@ -1,17 +1,21 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
-import FollowButton from './FollowButton'
+import FollowButton from './FollowButton';
+import QuestionForm from '../question_and_answer/QuestionForm';
 
-const favoritesAPI = 'http://localhost:4000/api/v1/favorites'
+const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
 
 class BandDetails extends Component {
 
   state = {
     isFollowing: null,
     specificFavoriteObject: null,
+    questionAsked: false,
   }
 
+
+  // This is the method that determines if the listener is already following this band or not and is passed down to the button so it knows which version of itself to render - the follow / unfollow button.
   setIsFollowingState = () => {
     let alreadyFollowing = this.props.allListenerFavorites.find((bandObj) => {
       return bandObj.id === this.props.selectedBand.id
@@ -23,6 +27,7 @@ class BandDetails extends Component {
     }
   }
 
+  // This is the method that determines if the band is already being followed by the user and sets the favorite object so it can be called by the unfollow method on the page load.
   setSpecificFavoriteObjectState = () => {
     let specificFavoriteObject = null;
     let specificFavoriteObj = this.props.allFavorites.find((favoriteObj) => {
@@ -34,19 +39,24 @@ class BandDetails extends Component {
     this.setState({specificFavoriteObject: specificFavoriteObject}, () => console.log(this.state.specificFavoriteObject))
   }
 
+  // Conditionally renders the follow button depending on whether the listener is logged in.
   renderFollowButton = () => {
     if (this.props.loggedInListener) {
       return < FollowButton isFollowing={this.state.isFollowing} createNewFollow={this.createNewFollow} unfollow={this.unfollow} />
     }
   }
 
+
+  // Conditionally call on these methods if you're logged in as a listener.
   componentDidMount(){
     if (this.props.loggedInListener) {
       this.setIsFollowingState()
       this.setSpecificFavoriteObjectState()
+      // this.renderQuestionForm()
     }
   }
 
+  // Creates a new follow relationship with the follow button, but also uses the response at the end to set the specificFavoriteObject so you can follow and unfollow as many times as you want without refreshing the page.
   createNewFollow = () => {
     fetch(favoritesAPI, {
       method: 'POST',
@@ -71,7 +81,29 @@ class BandDetails extends Component {
       .then(this.setState({isFollowing: false}))
   }
 
+  // Conditionally renders the new question button if listener is logged in
+  renderQuestionButton = () => {
+    if (this.props.loggedInListener) {
+      return <button name="ask question" onClick={() => this.setState({questionAsked: true})}>Ask a Question</button>
+    }
+  }
 
+  renderQuestionForm = () => {
+    if (this.state.questionAsked) {
+      return <QuestionForm unrenderQuestion={this.unrenderQuestion} />
+    }
+  }
+
+  unrenderQuestion = () => {
+    this.setState({questionAsked: false})
+  }
+
+  // Conditionally renders button if BAND is logged in to display a Check Questions button.
+  showQuestions = () => {
+    if (this.props.loggedInBand) {
+      return <button name="view questions" onClick={() => this.props.viewQuestionsContainer()} >View Questions</button>
+    }
+  }
 
   render() {
     return(
@@ -79,6 +111,9 @@ class BandDetails extends Component {
         <h1>{this.props.selectedBand.band_name}</h1>
         <p>{this.props.selectedBand.bio}</p>
         {this.renderFollowButton()}
+        {this.renderQuestionButton()}
+        {this.renderQuestionForm()}
+        {this.showQuestions()}
       </div>
     )
   }
@@ -90,16 +125,20 @@ const mapStateToProps = (state) => {
     selectedBand: state.selectedBand,
     loggedInListener: state.loggedInListener,
     allFavorites: state.allFavorites,
-    allListenerFavorites: state.allListenerFavorites
+    allListenerFavorites: state.allListenerFavorites,
+    loggedInBand: state.loggedInBand
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    viewQuestionsContainer: () => {
+      dispatch({
+        type: "SHOW_QUESTIONS",
+        payload: "view questions container"
+      })
+    }
+  }
+}
 
-// <button name="back to band list" onClick={() => this.props.newListener()} >Back to Bands</button>
-// const mapDispatchToProps = (dispatch) => {
-//   return{
-//
-//   }
-// }
-
-export default connect(mapStateToProps)(BandDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(BandDetails);

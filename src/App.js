@@ -11,6 +11,9 @@ import ListenerSignUpForm from './components/login_signup_screens/ListenerSignUp
 import BandContainer from './components/band_container_and_bands/BandContainer';
 import BandDetails from './components/band_container_and_bands/BandDetails';
 
+import QuestionsContainer from './components/question_and_answer/QuestionsContainer';
+
+
 const bandsAPI = 'http://localhost:4000/api/v1/bands';
 const listenersAPI = 'http://localhost:4000/api/v1/listeners';
 const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
@@ -120,6 +123,10 @@ class App extends Component {
       case "band details page":
         return(
           <BandDetails />
+        )
+      case "view questions container":
+        return(
+          <QuestionsContainer />
         )
       default:
         return (

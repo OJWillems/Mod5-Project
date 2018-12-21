@@ -1,9 +1,5 @@
 const defaultState = {
-  // FIX THIS HARD CODE
-  // homeScreen: "listener home page",
   homeScreen: null,
-  // hardCodedListener: null,
-  // FIX THIS HARD CODE
 
   allBands: null,
   allListeners: null,
@@ -14,6 +10,8 @@ const defaultState = {
   loggedInBand: null,
 
   selectedBand: null,
+
+  allBandsQuestions: null,
 
 }
 
@@ -45,6 +43,11 @@ const reducer = (state = defaultState, action) => {
         homeScreen: "band details page"
       }
 
+    // Get all of a band's questions
+    case "GET_BANDS_QUESTIONS":
+      console.log("action.payload: ", action.payload)
+      return{...state, allBandsQuestions: action.payload}
+
 
 
     //////////////////PAGE RENDER CASES//////////////////
@@ -69,7 +72,9 @@ const reducer = (state = defaultState, action) => {
     case "NEW_LISTENER_HANDLER":
       return {...state, homeScreen: action.payload}
 
-
+    // Band's questions pages:
+    case "SHOW_QUESTIONS":
+      return {...state, homeScreen: action.payload}
 
     default:
       return state
