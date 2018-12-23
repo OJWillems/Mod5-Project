@@ -46,6 +46,14 @@ class BandDetails extends Component {
     }
   }
 
+  // Conditionally set redux store for allBandsQuestions if band is logged in
+  fetchBandsQuestions = () => {
+    console.log(this.props.loggedInBandAPI)
+    fetch(this.props.loggedInBandAPI)
+      .then(resp => resp.json())
+      .then(bandQuestionsResp => this.props.getAllBandsQuestions(bandQuestionsResp))
+  }
+
 
   // Conditionally call on these methods if you're logged in as a listener.
   componentDidMount(){
@@ -53,6 +61,9 @@ class BandDetails extends Component {
       this.setIsFollowingState()
       this.setSpecificFavoriteObjectState()
       // this.renderQuestionForm()
+    } else {
+      this.fetchBandsQuestions()
+      // this.getBandQuestionsAPI()
     }
   }
 
@@ -105,6 +116,8 @@ class BandDetails extends Component {
     }
   }
 
+  // Start Rendering Questions and Answers if answered
+
   render() {
     return(
       <div>
@@ -126,7 +139,8 @@ const mapStateToProps = (state) => {
     loggedInListener: state.loggedInListener,
     allFavorites: state.allFavorites,
     allListenerFavorites: state.allListenerFavorites,
-    loggedInBand: state.loggedInBand
+    loggedInBand: state.loggedInBand,
+    loggedInBandAPI: state.loggedInBandAPI
   }
 }
 
@@ -136,6 +150,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "SHOW_QUESTIONS",
         payload: "view questions container"
+      })
+    },
+    getAllBandsQuestions: (bandQuestionsResp) => {
+      dispatch({
+        type: "GET_BANDS_QUESTIONS",
+        payload: bandQuestionsResp.questions
       })
     }
   }

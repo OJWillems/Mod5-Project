@@ -7,7 +7,10 @@ const defaultState = {
   allListenerFavorites: null,
 
   loggedInListener: null,
+  loggedInListenerAPI: null,
+
   loggedInBand: null,
+  loggedInBandAPI: null,
 
   selectedBand: null,
 
@@ -33,15 +36,20 @@ const reducer = (state = defaultState, action) => {
         loggedInListener: action.payload,
         homeScreen: "listener home page"
       }
+    case "SET_LOGGED_IN_LISTENER_API_URL":
+      return {...state, loggedInListenerAPI:action.payload}
 
     // Log In Band:
     case "LOG_IN_BAND":
-      return{
+      return {
         ...state,
         loggedInBand: action.payload,
         selectedBand: action.payload,
         homeScreen: "band details page"
       }
+
+    case "SET_LOGGED_IN_BAND_API_URL":
+      return{...state, loggedInBandAPI: action.payload}
 
     // Get all of a band's questions
     case "GET_BANDS_QUESTIONS":

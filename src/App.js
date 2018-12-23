@@ -44,9 +44,6 @@ class App extends Component {
     fetch(favoritesAPI)
       .then(resp => resp.json())
       .then(favoritesResp => this.props.allFavorites(favoritesResp))
-    // fetch(listenerFavoritesAPI)
-    //   .then(resp => resp.json())
-    //   .then(favoritesResp => this.props.allListenerFavorites(favoritesResp))
   }
 
   componentDidMount() {

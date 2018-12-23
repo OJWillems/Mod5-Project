@@ -5,22 +5,16 @@ import Question from './Question';
 
 const QuestionsContainer = (props) => {
 
-  const bandQuestionsAPI = `http://localhost:4000/api/v1/bands/${props.loggedInBand.id}/questions`
-
-  // console.log("API: ", bandQuestionsAPI)
-
-  const fetchBandsQuestions = () => {
-    fetch(bandQuestionsAPI)
-      .then(resp => resp.json())
-      .then(bandQuestionsResp => props.getAllBandsQuestions(bandQuestionsResp))
-  }
-
-  fetchBandsQuestions()
-
   const mapBandsQuestions = () => {
     if (props.allBandsQuestions) {
-      return props.allBandsQuestions.map((questionObj, idx) => {
-        return < Question key={idx} questionObj={questionObj} />
+      return props.allBandsQuestions.map((questionObj) => {
+        // console.log(questionObj.answer)
+        // console.log(questionObj.answers)
+        return (
+          <div key={questionObj.id}>
+            < Question questionObj={questionObj} />
+            <br/>
+          </div>)
       })
     }
   }
@@ -39,15 +33,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getAllBandsQuestions: (bandQuestionsResp) => {
-      dispatch({
-        type: "GET_BANDS_QUESTIONS",
-        payload: bandQuestionsResp.questions
-      })
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionsContainer)
+export default connect(mapStateToProps)(QuestionsContainer)

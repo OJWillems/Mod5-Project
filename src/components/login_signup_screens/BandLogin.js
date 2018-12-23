@@ -15,6 +15,7 @@ const BandLogin = (props) => {
     }
     console.log(authorizedBand)
     props.logInBand(authorizedBand)
+    props.bandQuestionsAPI(authorizedBand)
   }
 
   return (
@@ -53,6 +54,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch ({
         type: 'LOG_IN_BAND',
         payload: authorizedBand
+      })
+    },
+    bandQuestionsAPI: (authorizedBand) => {
+      dispatch({
+        type: 'SET_LOGGED_IN_BAND_API_URL',
+        payload: `http://localhost:4000/api/v1/bands/${authorizedBand.id}/questions`
       })
     }
   }

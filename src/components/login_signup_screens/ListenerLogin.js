@@ -15,6 +15,7 @@ const ListenerLogin = (props) => {
     }
     console.log(authorizedListener)
     props.logInListener(authorizedListener)
+    props.listenerLoginAPI(authorizedListener)
   }
 
   return (
@@ -53,6 +54,13 @@ const mapDispatchToProps = (dispatch) => {
       dispatch ({
         type: 'LOG_IN_LISTENER',
         payload: authorizedListener
+      })
+    },
+    listenerLoginAPI: (authorizedListener) => {
+      console.log('authorizedListener: ', authorizedListener.id)
+      dispatch({
+        type: 'SET_LOGGED_IN_LISTENER_API_URL',
+        payload: `http://localhost:4000/api/v1/listeners/${authorizedListener.id}/favorites`
       })
     }
   }
