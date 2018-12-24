@@ -17,7 +17,8 @@ const QuestionForm = (props) => {
       body: JSON.stringify({
         band_id: props.selectedBand.id,
         listener_id: props.loggedInListener.id,
-        question_response: event.target.question.value
+        question_response: event.target.question.value,
+        has_answered: false
       })
     })
       // Your question has been posted popup thing.

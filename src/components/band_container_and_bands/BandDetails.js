@@ -117,6 +117,12 @@ class BandDetails extends Component {
   }
 
   // Start Rendering Questions and Answers if answered
+  showQuestionsAndAnswers = () => {
+    // fetch all of a band's questions and map through them. If questionObj.has_answered === true, render it.
+    // for that same question, render the answer that corresponds to it. Will likely have to create an answer route in the questions controller.
+
+  }
+
 
   render() {
     return(
