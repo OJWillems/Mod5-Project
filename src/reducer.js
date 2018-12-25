@@ -14,7 +14,7 @@ const defaultState = {
 
   selectedBand: null,
 
-  allBandsQuestions: null,
+  allSelectedBandsAnsweredQuestions: null,
 
 }
 
@@ -53,10 +53,10 @@ const reducer = (state = defaultState, action) => {
 
     // Get all of a band's questions
     case "GET_BANDS_QUESTIONS":
-      console.log("action.payload: ", action.payload)
       return{...state, allBandsQuestions: action.payload}
 
-
+    case "GET_ALL_SELECTED_BANDS_ANSWERED_QUESTIONS":
+      return{...state, allSelectedBandsAnsweredQuestions: action.payload}
 
     //////////////////PAGE RENDER CASES//////////////////
     // OnClick Listener Page Band Selector

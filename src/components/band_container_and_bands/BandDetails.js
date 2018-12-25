@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import FollowButton from './FollowButton';
 import QuestionForm from '../question_and_answer/QuestionForm';
+import QuestionAndAnswer from '../question_and_answer/QuestionAndAnswer';
 
 const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
 
@@ -14,6 +15,9 @@ class BandDetails extends Component {
     questionAsked: false,
   }
 
+
+  // THIS IS HERE SO THAT WHEN YOU LOG IN AS A LISTENER YOU CAN ACCESS THE SPECIFIC BAND'S QUESTIONS FOR USE IN THE setSelectedBandAnsweredQuestions METHOD
+  selectedBandQuestionsAPI = `http://localhost:4000/api/v1/bands/${this.props.selectedBand.id}/questions/`
 
   // This is the method that determines if the listener is already following this band or not and is passed down to the button so it knows which version of itself to render - the follow / unfollow button.
   setIsFollowingState = () => {
@@ -55,15 +59,30 @@ class BandDetails extends Component {
   }
 
 
+  // THIS WILL SET A SELECTED BAND'S QUESTIONS ONLY IF THEIR has_answered ATTRIBUTE IS TRUE
+  setSelectedBandAnsweredQuestions = () => {
+    fetch(this.selectedBandQuestionsAPI)
+      .then(resp => resp.json())
+      .then(selectedBandQuestionsResp => {
+        const selectedBandAnsweredQuestions = []
+        selectedBandQuestionsResp.questions.map(selectedBandQuestionsObj => {
+          if(selectedBandQuestionsObj.has_answered) {
+            selectedBandAnsweredQuestions.push(selectedBandQuestionsObj)
+          }
+        })
+        this.props.getAllSelectedBandsAnsweredQuestions(selectedBandAnsweredQuestions)
+      })
+  }
+
+
   // Conditionally call on these methods if you're logged in as a listener.
   componentDidMount(){
     if (this.props.loggedInListener) {
       this.setIsFollowingState()
       this.setSpecificFavoriteObjectState()
-      // this.renderQuestionForm()
+      this.setSelectedBandAnsweredQuestions()
     } else {
       this.fetchBandsQuestions()
-      // this.getBandQuestionsAPI()
     }
   }
 
@@ -117,12 +136,24 @@ class BandDetails extends Component {
   }
 
   // Start Rendering Questions and Answers if answered
-  showQuestionsAndAnswers = () => {
-    // fetch all of a band's questions and map through them. If questionObj.has_answered === true, render it.
-    // for that same question, render the answer that corresponds to it. Will likely have to create an answer route in the questions controller.
-
+    // I have access to all of my Band's questions upon rendering of this page. So. Map over those and render only the ones that display if has_answered === true
+  renderAnsweredQuestions = () => {
+    if (this.props.allBandsQuestions) {
+      return this.props.allBandsQuestions.map(questionObj => {
+        if (questionObj.has_answered) {
+          return (
+            <QuestionAndAnswer key={questionObj.id} questionObj={questionObj}/>
+          )
+        }
+      })
+    } else if (this.props.allSelectedBandsAnsweredQuestions) {
+      return this.props.allSelectedBandsAnsweredQuestions.map(questionObj => {
+        return (
+          <QuestionAndAnswer key={questionObj.id} questionObj={questionObj}/>
+        )
+      })
+    }
   }
-
 
   render() {
     return(
@@ -133,21 +164,11 @@ class BandDetails extends Component {
         {this.renderQuestionButton()}
         {this.renderQuestionForm()}
         {this.showQuestions()}
+        {this.renderAnsweredQuestions()}
       </div>
     )
   }
 
-}
-
-const mapStateToProps = (state) => {
-  return {
-    selectedBand: state.selectedBand,
-    loggedInListener: state.loggedInListener,
-    allFavorites: state.allFavorites,
-    allListenerFavorites: state.allListenerFavorites,
-    loggedInBand: state.loggedInBand,
-    loggedInBandAPI: state.loggedInBandAPI
-  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -163,7 +184,26 @@ const mapDispatchToProps = (dispatch) => {
         type: "GET_BANDS_QUESTIONS",
         payload: bandQuestionsResp.questions
       })
+    },
+    getAllSelectedBandsAnsweredQuestions: (selectedBandAnsweredQuestions) => {
+      dispatch({
+        type: "GET_ALL_SELECTED_BANDS_ANSWERED_QUESTIONS",
+        payload: selectedBandAnsweredQuestions
+      })
     }
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    selectedBand: state.selectedBand,
+    loggedInListener: state.loggedInListener,
+    allFavorites: state.allFavorites,
+    allListenerFavorites: state.allListenerFavorites,
+    loggedInBand: state.loggedInBand,
+    loggedInBandAPI: state.loggedInBandAPI,
+    allBandsQuestions: state.allBandsQuestions,
+    allSelectedBandsAnsweredQuestions: state.allSelectedBandsAnsweredQuestions
   }
 }
 
