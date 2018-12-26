@@ -24,7 +24,7 @@ class QuestionAndAnswer extends Component {
       console.log(this.state.answerObject.answer.answer_response)
       return (
         <div>
-          <p>{this.props.questionObj.question_response}</p>
+          <h3>{this.props.questionObj.question_response}</h3>
           <p>{this.state.answerObject.answer.answer_response}</p>
         </div>
       )

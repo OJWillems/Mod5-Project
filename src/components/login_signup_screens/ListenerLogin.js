@@ -5,7 +5,6 @@ const ListenerLogin = (props) => {
 
   const listenerMockAuth = (event) => {
     event.preventDefault()
-    console.log(event.target.username.value)
     let authorizedListener = null
     let listenerFind = props.allListeners.find((listenerObj) => {
       return listenerObj.username === event.target.username.value && listenerObj.password === event.target.password.value
@@ -13,7 +12,6 @@ const ListenerLogin = (props) => {
     if (listenerFind) {
       authorizedListener = listenerFind
     }
-    console.log(authorizedListener)
     props.logInListener(authorizedListener)
     props.listenerLoginAPI(authorizedListener)
   }

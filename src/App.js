@@ -18,9 +18,6 @@ const bandsAPI = 'http://localhost:4000/api/v1/bands';
 const listenersAPI = 'http://localhost:4000/api/v1/listeners';
 const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
 
-//YOU CAN'T FETCH TO THIS API UNTIL AFTER YOU'VE LOGGED IN
-// const listenerFavoritesAPI = `http://localhost:4000/api/v1/listeners/1/favorites`;
-
 class App extends Component {
 
   state = {
@@ -144,7 +141,6 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     homeScreen: state.homeScreen,
-    loggedInListener: state.loggedInListener
   }
 }
 

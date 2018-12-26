@@ -17,6 +17,7 @@ class BandDetails extends Component {
 
 
   // THIS IS HERE SO THAT WHEN YOU LOG IN AS A LISTENER YOU CAN ACCESS THE SPECIFIC BAND'S QUESTIONS FOR USE IN THE setSelectedBandAnsweredQuestions METHOD
+  // NOTE: props.selectedBand in Redux is set both when a listener selects a band AND when a band logs in - technically the logged in band is also the selected band.
   selectedBandQuestionsAPI = `http://localhost:4000/api/v1/bands/${this.props.selectedBand.id}/questions/`
 
   // This is the method that determines if the listener is already following this band or not and is passed down to the button so it knows which version of itself to render - the follow / unfollow button.
@@ -40,7 +41,7 @@ class BandDetails extends Component {
     if (specificFavoriteObj !== undefined) {
       specificFavoriteObject = specificFavoriteObj
     }
-    this.setState({specificFavoriteObject: specificFavoriteObject}, () => console.log(this.state.specificFavoriteObject))
+    this.setState({specificFavoriteObject: specificFavoriteObject})
   }
 
   // Conditionally renders the follow button depending on whether the listener is logged in.
@@ -101,7 +102,7 @@ class BandDetails extends Component {
     })
       .then(this.setState({isFollowing: true}))
       .then(resp => resp.json())
-      .then(favoriteObj => this.setState({specificFavoriteObject: favoriteObj.favorite}, () => console.log(this.state.specificFavoriteObject)))
+      .then(favoriteObj => this.setState({specificFavoriteObject: favoriteObj.favorite}))
   }
 
   unfollow = () => {
@@ -124,6 +125,7 @@ class BandDetails extends Component {
     }
   }
 
+// note that this method is passed down to renderQuestionForm so the cancel button on the question form will unrender the component.
   unrenderQuestion = () => {
     this.setState({questionAsked: false})
   }
@@ -135,8 +137,7 @@ class BandDetails extends Component {
     }
   }
 
-  // Start Rendering Questions and Answers if answered
-    // I have access to all of my Band's questions upon rendering of this page. So. Map over those and render only the ones that display if has_answered === true
+  // Frankly I'm not sure what's with this different conditional render... but I'll keep it up in case everything breaks. I'm assuming the first half is to render the answered questions when the band is logged in, whereas the second is when the listener is logged in. I'm a little confused, considering the Selected band is the same.
   renderAnsweredQuestions = () => {
     if (this.props.allBandsQuestions) {
       return this.props.allBandsQuestions.map(questionObj => {

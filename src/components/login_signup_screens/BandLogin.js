@@ -5,7 +5,6 @@ const BandLogin = (props) => {
 
   const bandMockAuth = (event) => {
     event.preventDefault()
-    console.log(event.target.username.value)
     let authorizedBand = null
     let bandFind = props.allBands.find((bandObj) => {
       return bandObj.username === event.target.username.value && bandObj.password === event.target.password.value
@@ -13,7 +12,6 @@ const BandLogin = (props) => {
     if (bandFind) {
       authorizedBand = bandFind
     }
-    console.log(authorizedBand)
     props.logInBand(authorizedBand)
     props.bandQuestionsAPI(authorizedBand)
   }
