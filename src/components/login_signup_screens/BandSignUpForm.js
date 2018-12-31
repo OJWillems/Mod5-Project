@@ -19,6 +19,10 @@ const BandSignUpForm = (props) => {
         Bio: <textarea type="textarea" name="bio" />
       </label>
       <br/>
+      <label>
+        Image URL: <input type="text" name="imgUrl" />
+      </label>
+      <br/>
       <input type="submit" value="Submit" />
     </form>
   )

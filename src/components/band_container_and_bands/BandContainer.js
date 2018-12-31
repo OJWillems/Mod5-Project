@@ -38,9 +38,17 @@ class BandContainer extends Component {
     }
   }
 
+  renderFavoritesButton = () => {
+    if (this.state.shouldDisplayFavorites === false) {
+      return <button name="only_display_favorites" onClick={() => this.displayFavoriteBands()} >Favorites</button>
+    } else {
+      return <button name="display_all_bands" onClick={() => this.displayFavoriteBands()} >All Bands</button>
+    }
+  }
+
   displayFavoriteBands = () => {
     this.setState({
-      shouldDisplayFavorites: true
+      shouldDisplayFavorites: !this.state.shouldDisplayFavorites
     })
   }
 
@@ -48,7 +56,7 @@ class BandContainer extends Component {
     return (
       <div>
         <h1>BAND CONTAINER</h1>
-        <button name="only display favorites" onClick={() => this.displayFavoriteBands()} >Favorites</button>
+        {this.renderFavoritesButton()}
         {this.mapBands()}
       </div>
     )

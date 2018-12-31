@@ -59,6 +59,10 @@ const reducer = (state = defaultState, action) => {
       return{...state, allSelectedBandsAnsweredQuestions: action.payload}
 
     //////////////////PAGE RENDER CASES//////////////////
+    case "GO_BACK_TO_HOME_PAGE":
+      return {...state, homeScreen: action.payload}
+    case "GO_BACK_TO_BANDS_CONTAINER":
+      return {...state, homeScreen: action.payload}
     // OnClick Listener Page Band Selector
     case "SELECT_BAND":
       return {
@@ -82,6 +86,10 @@ const reducer = (state = defaultState, action) => {
 
     // Band's questions pages:
     case "SHOW_QUESTIONS":
+      return {...state, homeScreen: action.payload}
+
+    // From a Band's Questions Container, go back to their Details Page:
+    case "GO_BACK_TO_BAND_DETAILS":
       return {...state, homeScreen: action.payload}
 
     default:

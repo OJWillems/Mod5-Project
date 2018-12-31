@@ -25,9 +25,11 @@ class App extends Component {
     bandPassword: null,
     bandName: null,
     bandBio: null,
+    imgUrl: null,
 
     listenerUserName: null,
     listenerPassword: null,
+    listenerName: null,
 
   }
 
@@ -53,7 +55,8 @@ class App extends Component {
       bandUserName: event.target.username.value,
       bandPassword: event.target.password.value,
       bandName: event.target.bandName.value,
-      bandBio: event.target.bio.value
+      bandBio: event.target.bio.value,
+      imgUrl: event.target.imgUrl.value
     }, () => {
       fetch(bandsAPI, {
         method: 'POST',
@@ -65,7 +68,8 @@ class App extends Component {
           username: this.state.bandUserName,
           password: this.state.bandPassword,
           band_name: this.state.bandName,
-          bio: this.state.bandBio
+          bio: this.state.bandBio,
+          img_url: this.state.imgUrl
         })
       })
     })
@@ -75,7 +79,8 @@ class App extends Component {
     event.preventDefault()
     this.setState({
       listenerUserName: event.target.username.value,
-      listenerPassword: event.target.password.value
+      listenerPassword: event.target.password.value,
+      listenerName: event.target.name.value
     }, () => {
       fetch(listenersAPI, {
         method: 'POST',
@@ -86,7 +91,7 @@ class App extends Component {
         body: JSON.stringify({
           username: this.state.listenerUserName,
           password: this.state.listenerPassword,
-          name: this.state.name
+          name: this.state.listenerName
         })
       })
     })
@@ -121,6 +126,10 @@ class App extends Component {
       case "view questions container":
         return(
           <QuestionsContainer />
+        )
+      case "start home":
+        return(
+          <StartHome />
         )
       default:
         return (

@@ -12,3 +12,46 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* StartHome Component */
+.startHomeDiv {
+  display: block;
+  margin: auto;
+  margin-top: 19%;
+  /* margin-left: 30%;
+  margin-right: 35%; */
+  width: 41%;
+}
+.startHomeHeader {
+  font-size: 50px;
+}
+
+.startHomeButtonBand {
+  width: 200px
+}
+
+.startHomeButtonListener{
+  width: 200px
+}
+
+/* Login Screens */
+.listenerLoginForm {
+  display: block;
+  margin: auto;
+  margin-top: 19%;
+  margin-left: 40%;
+  /* margin-left: 30%;
+  margin-right: 35%; */
+  /* width: 10%; */
+}
+
+
+
+/* SignUp Screens */
+
+.listenerSignUpForm {
+  display: block;
+  margin: auto;
+  margin-top: 19%;
+  margin-left: 40%;
+}

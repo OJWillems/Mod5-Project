@@ -23,8 +23,20 @@ const QuestionsContainer = (props) => {
   return (
     <div>
       {mapBandsQuestions()}
+      <button name="go_back_to_band_details" onClick={() => props.goBackToBandDetails()} >Back</button>
     </div>
   )
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    goBackToBandDetails: () => {
+      dispatch({
+        type: "GO_BACK_TO_BAND_DETAILS",
+        payload: "band details page"
+      })
+    }
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -34,4 +46,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(QuestionsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionsContainer)

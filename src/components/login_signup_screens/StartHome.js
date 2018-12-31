@@ -1,12 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {Button} from 'semantic-ui-react';
+
 const StartHome = (props) => {
   return (
-    <div>
-      <h1>Are you a Band or a Listener? </h1>
-      <button name="band" onClick={() => props.chooseBand()} > Band </button>
-      <button name="listener" onClick={() => props.chooseListener()} > Listener </button>
+    <div className="startHomeDiv">
+      <h1 className="startHomeHeader">Are You a Band or a Listener? </h1>
+      <br/>
+      <Button name="band" onClick={() => props.chooseBand()} className="startHomeButtonBand" floated='right' size='huge' color='purple'>Band</Button>
+      <Button name="listener" onClick={() => props.chooseListener()} className="startHomeButtonListener" floated='left' size='huge' color='blue'>Listener</Button>
     </div>
   )
 }

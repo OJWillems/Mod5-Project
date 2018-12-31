@@ -30,6 +30,7 @@ const BandLogin = (props) => {
         <input type="submit" value="Submit" />
       </form>
       <button name="new band" onClick={() => props.newBand()} >New Band</button>
+      <button name="back_to_home" onClick={() => props.backToHome()} >Back</button>
     </div>
   )
 }
@@ -58,6 +59,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'SET_LOGGED_IN_BAND_API_URL',
         payload: `http://localhost:4000/api/v1/bands/${authorizedBand.id}/questions`
+      })
+    },
+    backToHome: () => {
+      dispatch({
+        type: 'GO_BACK_TO_HOME_PAGE',
+        payload: 'start home'
       })
     }
   }

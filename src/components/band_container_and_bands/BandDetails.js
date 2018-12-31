@@ -51,6 +51,13 @@ class BandDetails extends Component {
     }
   }
 
+  // Conditionally renders a go back to Bands page
+  renderGoBackToBandsContainer = () => {
+    if (this.props.loggedInListener) {
+      return <button name="go_back_to_bands" onClick={() => this.props.goBackToBandsContainer()} >Go Back To Bands</button>
+    }
+  }
+
   // Conditionally set redux store for allBandsQuestions if band is logged in
   fetchBandsQuestions = () => {
     console.log(this.props.loggedInBandAPI)
@@ -160,12 +167,14 @@ class BandDetails extends Component {
     return(
       <div>
         <h1>{this.props.selectedBand.band_name}</h1>
+        <img src={this.props.selectedBand.img_url} alt={this.props.selectedBand.band_name} />
         <p>{this.props.selectedBand.bio}</p>
         {this.renderFollowButton()}
         {this.renderQuestionButton()}
         {this.renderQuestionForm()}
         {this.showQuestions()}
         {this.renderAnsweredQuestions()}
+        {this.renderGoBackToBandsContainer()}
       </div>
     )
   }
@@ -190,6 +199,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "GET_ALL_SELECTED_BANDS_ANSWERED_QUESTIONS",
         payload: selectedBandAnsweredQuestions
+      })
+    },
+    goBackToBandsContainer: () => {
+      dispatch({
+        type: "GO_BACK_TO_BANDS_CONTAINER",
+        payload: "listener home page"
       })
     }
   }
