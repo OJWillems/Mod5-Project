@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {Button} from 'semantic-ui-react';
+
 import Question from './Question';
 
 const QuestionsContainer = (props) => {
@@ -22,8 +24,9 @@ const QuestionsContainer = (props) => {
 
   return (
     <div>
+      <h1 className="questionsContainerHeader">All Your Unanswered Questions:</h1>
       {mapBandsQuestions()}
-      <button name="go_back_to_band_details" onClick={() => props.goBackToBandDetails()} >Back</button>
+      <Button color="purple" size="mini" name="go_back_to_band_details" onClick={() => props.goBackToBandDetails()} >Back to Band Page</Button>
     </div>
   )
 }

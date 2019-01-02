@@ -20,8 +20,6 @@ class QuestionAndAnswer extends Component {
 
   renderAnswer = () => {
     if (this.state.answerObject != null) {
-      console.log('answer OBJJJ : asdfasdf', this.state.answerObject)
-      console.log(this.state.answerObject.answer.answer_response)
       return (
         <div>
           <h3>{this.props.questionObj.question_response}</h3>

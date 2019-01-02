@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 
 import AnswerForm from './AnswerForm'
 
+import {Button} from 'semantic-ui-react';
+
+
 class Question extends Component {
 
   state = {
@@ -23,11 +26,10 @@ class Question extends Component {
     if (this.state.questionAnswered < 1) {
       return (
         <div>
-          {this.props.questionObj.question_response}
-          <br/>
-          <button name="answer question" onClick={() => this.handleQuestionAskedState()} >Answer Question</button>
+          <h3>{this.props.questionObj.question_response}</h3>
+          <Button color="blue" size="mini" name="answer question" onClick={() => this.handleQuestionAskedState()} >Answer Question</Button>
+          <Button color="red" size="mini" name="delete question" >Delete Question</Button>
           <AnswerForm questionAsked={this.state.questionAsked} questionObj={this.props.questionObj} questionAnsweredHandler={this.questionAnsweredHandler}/>
-          <button name="delete question" >Delete Question</button>
         </div>
       )
     }

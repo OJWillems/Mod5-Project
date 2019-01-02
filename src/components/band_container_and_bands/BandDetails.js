@@ -5,7 +5,7 @@ import FollowButton from './FollowButton';
 import QuestionForm from '../question_and_answer/QuestionForm';
 import QuestionAndAnswer from '../question_and_answer/QuestionAndAnswer';
 
-import { Button, Image } from 'semantic-ui-react'
+import { Button, Header, Image, Modal } from 'semantic-ui-react'
 
 const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
 
@@ -121,23 +121,35 @@ class BandDetails extends Component {
       .then(this.setState({isFollowing: false}))
   }
 
+  renderQuestionForm = () => {
+    this.setState({questionAsked: true})
+  }
+
+  // note that this method is passed down to renderQuestionForm so the cancel button on the question form will unrender the component.
+    unrenderQuestion = () => {
+      this.setState({questionAsked: false})
+    }
+
   // Conditionally renders the new question button if listener is logged in
   renderQuestionButton = () => {
     if (this.props.loggedInListener) {
-      return <div><Button color="blue" name="ask question" onClick={() => this.setState({questionAsked: true})} className="askAQuestionButton">Ask a Question</Button></div>
+      // return <div><Button color="blue" name="ask question" onClick={() => this.setState({questionAsked: true})} className="askAQuestionButton">Ask a Question</Button></div>
+      return (
+        <Modal
+          trigger={<Button color="blue" name="ask question" className="askAQuestionButton" onClick={this.renderQuestionForm}>Ask a Question</Button>}
+          open={this.state.questionAsked}
+          onClose={this.unrenderQuestion}
+        >
+          <QuestionForm unrenderQuestion={this.unrenderQuestion}/>
+        </Modal>
+      )
+      //
     }
   }
 
-  renderQuestionForm = () => {
-    if (this.state.questionAsked) {
-      return <QuestionForm unrenderQuestion={this.unrenderQuestion} />
-    }
-  }
 
-// note that this method is passed down to renderQuestionForm so the cancel button on the question form will unrender the component.
-  unrenderQuestion = () => {
-    this.setState({questionAsked: false})
-  }
+
+
 
   // Conditionally renders button if BAND is logged in to display a Check Questions button.
   showQuestions = () => {
@@ -176,7 +188,6 @@ class BandDetails extends Component {
         {this.renderFollowButton()}
         {this.renderQuestionButton()}
         {this.renderGoBackToBandsContainer()}
-        {this.renderQuestionForm()}
         {this.showQuestions()}
         <h4 className="qAndAHeader">Q&A:</h4>
         <div className="qAndAContainerDiv">{this.renderAnsweredQuestions()}</div>
