@@ -26,6 +26,7 @@ class QuestionAndAnswer extends Component {
         <div>
           <h3>{this.props.questionObj.question_response}</h3>
           <p>{this.state.answerObject.answer.answer_response}</p>
+          <br/>
         </div>
       )
     }

@@ -5,6 +5,8 @@ import FollowButton from './FollowButton';
 import QuestionForm from '../question_and_answer/QuestionForm';
 import QuestionAndAnswer from '../question_and_answer/QuestionAndAnswer';
 
+import { Button, Image } from 'semantic-ui-react'
+
 const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
 
 class BandDetails extends Component {
@@ -54,7 +56,7 @@ class BandDetails extends Component {
   // Conditionally renders a go back to Bands page
   renderGoBackToBandsContainer = () => {
     if (this.props.loggedInListener) {
-      return <button name="go_back_to_bands" onClick={() => this.props.goBackToBandsContainer()} >Go Back To Bands</button>
+      return <div><Button color="purple" name="go_back_to_bands" onClick={() => this.props.goBackToBandsContainer()} className="goBackToBandsButton" >Go Back To Bands</Button></div>
     }
   }
 
@@ -122,7 +124,7 @@ class BandDetails extends Component {
   // Conditionally renders the new question button if listener is logged in
   renderQuestionButton = () => {
     if (this.props.loggedInListener) {
-      return <button name="ask question" onClick={() => this.setState({questionAsked: true})}>Ask a Question</button>
+      return <div><Button color="blue" name="ask question" onClick={() => this.setState({questionAsked: true})} className="askAQuestionButton">Ask a Question</Button></div>
     }
   }
 
@@ -140,7 +142,7 @@ class BandDetails extends Component {
   // Conditionally renders button if BAND is logged in to display a Check Questions button.
   showQuestions = () => {
     if (this.props.loggedInBand) {
-      return <button name="view questions" onClick={() => this.props.viewQuestionsContainer()} >View Questions</button>
+      return <Button color="blue" name="view questions" onClick={() => this.props.viewQuestionsContainer()} className="viewQuestionsButton">View Questions</Button>
     }
   }
 
@@ -150,7 +152,7 @@ class BandDetails extends Component {
       return this.props.allBandsQuestions.map(questionObj => {
         if (questionObj.has_answered) {
           return (
-            <QuestionAndAnswer key={questionObj.id} questionObj={questionObj}/>
+            <QuestionAndAnswer key={questionObj.id} questionObj={questionObj} />
           )
         }
       })
@@ -166,15 +168,18 @@ class BandDetails extends Component {
   render() {
     return(
       <div>
-        <h1>{this.props.selectedBand.band_name}</h1>
-        <img src={this.props.selectedBand.img_url} alt={this.props.selectedBand.band_name} />
-        <p>{this.props.selectedBand.bio}</p>
+        <h1 className="bandDetailsHeader">{this.props.selectedBand.band_name}</h1>
+        <div className="bandDetailsImage"><Image src={this.props.selectedBand.img_url} alt={this.props.selectedBand.band_name} size="massive" /></div>
+        <br/>
+        <h4 className="bandDetailsBioHeader">Bio:</h4>
+        <p className="bandDetailsBio">{this.props.selectedBand.bio}</p>
         {this.renderFollowButton()}
         {this.renderQuestionButton()}
+        {this.renderGoBackToBandsContainer()}
         {this.renderQuestionForm()}
         {this.showQuestions()}
-        {this.renderAnsweredQuestions()}
-        {this.renderGoBackToBandsContainer()}
+        <h4 className="qAndAHeader">Q&A:</h4>
+        <div className="qAndAContainerDiv">{this.renderAnsweredQuestions()}</div>
       </div>
     )
   }

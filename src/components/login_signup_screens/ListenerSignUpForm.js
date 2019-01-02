@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {Button, Form, Message} from 'semantic-ui-react'
+import {Button, Form, Message} from 'semantic-ui-react';
 
 const ListenerSignUpForm = (props) => {
   return (

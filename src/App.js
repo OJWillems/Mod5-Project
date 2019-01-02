@@ -25,6 +25,8 @@ class App extends Component {
     bandPassword: null,
     bandName: null,
     bandBio: null,
+    genre: null,
+    bandMembers: null,
     imgUrl: null,
 
     listenerUserName: null,
@@ -56,6 +58,8 @@ class App extends Component {
       bandPassword: event.target.password.value,
       bandName: event.target.bandName.value,
       bandBio: event.target.bio.value,
+      genre: event.target.genre.value,
+      bandMembers: event.target.bandMembers.value,
       imgUrl: event.target.imgUrl.value
     }, () => {
       fetch(bandsAPI, {
@@ -69,9 +73,13 @@ class App extends Component {
           password: this.state.bandPassword,
           band_name: this.state.bandName,
           bio: this.state.bandBio,
+          genre: this.state.genre,
+          band_members: this.state.bandMembers,
           img_url: this.state.imgUrl
         })
       })
+      .then(resp => resp.json())
+      .then(signedUpBandObj => this.props.signUpBandRedirect(signedUpBandObj))
     })
   }
 
@@ -94,6 +102,8 @@ class App extends Component {
           name: this.state.listenerName
         })
       })
+        .then(resp => resp.json())
+        .then(signedUpListenerObj => this.props.signUpListenerRedirect(signedUpListenerObj))
     })
   }
 
@@ -171,6 +181,18 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "GET_ALL_FAVORITES",
         payload: favoritesResp.favorites
+      })
+    },
+    signUpListenerRedirect: (signedUpListenerObj) => {
+      dispatch({
+        type: "SIGN_UP_LISTENER",
+        payload: signedUpListenerObj.listener
+      })
+    },
+    signUpBandRedirect: (signedUpBandObj) => {
+      dispatch({
+        type: "SIGN_UP_BAND",
+        payload: signedUpBandObj.band
       })
     }
   }

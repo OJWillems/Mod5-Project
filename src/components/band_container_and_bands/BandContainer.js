@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Band from './Band'
+import BandPreview from './BandPreview'
+
+import { List, Button } from 'semantic-ui-react'
 
 class BandContainer extends Component {
 
   state = {
     shouldDisplayFavorites: false,
+    hoveredBandObj: this.props.allBands[0],
   }
 
   getListenerFavorites = () => {
@@ -25,13 +29,13 @@ class BandContainer extends Component {
       if (this.state.shouldDisplayFavorites === false) {
         return this.props.allBands.map((band, idx) => {
           return(
-            < Band key={idx} band={band} />
+            < Band key={idx} band={band} onMouseOverHandler={this.onMouseOverHandler} />
           )
         })
       } else if (this.state.shouldDisplayFavorites === true) {
         return this.props.allListenerFavorites.map((band, idx) => {
           return(
-            < Band key={idx} band={band} />
+            < Band key={idx} band={band} onMouseOverHandler={this.onMouseOverHandler} />
           )
         })
       }
@@ -40,9 +44,9 @@ class BandContainer extends Component {
 
   renderFavoritesButton = () => {
     if (this.state.shouldDisplayFavorites === false) {
-      return <button name="only_display_favorites" onClick={() => this.displayFavoriteBands()} >Favorites</button>
+      return <Button color="purple" name="only_display_favorites" onClick={() => this.displayFavoriteBands()} className="displayFavoritesButton">Favorites</Button>
     } else {
-      return <button name="display_all_bands" onClick={() => this.displayFavoriteBands()} >All Bands</button>
+      return <Button color="purple" name="display_all_bands" onClick={() => this.displayFavoriteBands()} className="displayFavoritesButton">All Bands</Button>
     }
   }
 
@@ -52,12 +56,25 @@ class BandContainer extends Component {
     })
   }
 
+  onMouseOverHandler = (bandObj) => {
+    this.setState({hoveredBandObj: bandObj}, () => console.log(this.state.hoveredBandObj))
+  }
+
+  renderBandPreview = () => {
+    if (this.state.hoveredBandObj) {
+      return <BandPreview hoveredBandObj={this.state.hoveredBandObj}/>
+    }
+  }
+
   render() {
     return (
       <div>
-        <h1>BAND CONTAINER</h1>
+        <h1 className="bandContainerHeader">All Bands:</h1>
         {this.renderFavoritesButton()}
-        {this.mapBands()}
+        <List size='massive' className="bandContainerList">
+          {this.mapBands()}
+        </List>
+        {this.renderBandPreview()}
       </div>
     )
   }

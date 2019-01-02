@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import { Button, Form, Message } from 'semantic-ui-react'
+
 const BandLogin = (props) => {
 
   const bandMockAuth = (event) => {
@@ -11,29 +13,31 @@ const BandLogin = (props) => {
     })
     if (bandFind) {
       authorizedBand = bandFind
+      props.logInBand(authorizedBand)
+      props.bandQuestionsAPI(authorizedBand)
     }
-    props.logInBand(authorizedBand)
-    props.bandQuestionsAPI(authorizedBand)
   }
 
   return (
-    <div>
-      <form onSubmit={(event) => bandMockAuth(event)}>
-        <label>
-          Username:<input type="text" name="username" />
-        </label>
-        <br/>
-        <label>
-          Password: <input type="text" name="password" />
-        </label>
-        <br/>
-        <input type="submit" value="Submit" />
-      </form>
-      <button name="new band" onClick={() => props.newBand()} >New Band</button>
-      <button name="back_to_home" onClick={() => props.backToHome()} >Back</button>
+    <div className="loginForm">
+      <Form onSubmit={(event) => bandMockAuth(event)} error>
+        <Form.Field>
+          <h7><label>Username</label></h7>
+          <Form.Input placeholder='Username' name="username" width={4}/>
+        </Form.Field>
+        <Form.Field>
+          <h7><label>Password</label></h7>
+          <Form.Input placeholder='Password' type="password" name="password" width={4}/>
+        </Form.Field>
+        <Button type='submit' color='green'>Submit</Button>
+      </Form>
+      <br/>
+      <Button name="newBand" onClick={() => props.newBand()} color='purple'>New Band</Button>
+      <Button name="backToHome" onClick={() => props.backToHome()} color='red'>Back</Button>
     </div>
   )
 }
+
 
 const mapStateToProps = (state) => {
   return {

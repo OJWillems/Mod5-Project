@@ -38,11 +38,26 @@ const reducer = (state = defaultState, action) => {
       }
     case "SET_LOGGED_IN_LISTENER_API_URL":
       return {...state, loggedInListenerAPI:action.payload}
+    case "SIGN_UP_LISTENER":
+      return {
+        ...state,
+        loggedInListener: action.payload,
+        loggedInListenerAPI: `http://localhost:4000/api/v1/listeners/${action.payload.id}/favorites`,
+        homeScreen: "listener home page"
+      }
 
     // Log In Band:
     case "LOG_IN_BAND":
       return {
         ...state,
+        loggedInBand: action.payload,
+        selectedBand: action.payload,
+        homeScreen: "band details page"
+      }
+    case "SIGN_UP_BAND":
+      return {
+        ...state,
+        loggedInBandAPI: `http://localhost:4000/api/v1/bands/${action.payload.id}/questions`,
         loggedInBand: action.payload,
         selectedBand: action.payload,
         homeScreen: "band details page"

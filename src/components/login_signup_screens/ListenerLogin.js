@@ -13,9 +13,9 @@ const ListenerLogin = (props) => {
     })
     if (listenerFind) {
       authorizedListener = listenerFind
+      props.logInListener(authorizedListener)
+      props.listenerLoginAPI(authorizedListener)
     }
-    props.logInListener(authorizedListener)
-    props.listenerLoginAPI(authorizedListener)
   }
 
 
@@ -41,7 +41,7 @@ const ListenerLogin = (props) => {
   // </div>
 
   return (
-    <div className="listenerLoginForm" >
+    <div className="loginForm" >
       <Form onSubmit={(event) => listenerMockAuth(event)} error>
         <Form.Field>
           <h7><label >Username</label></h7>
@@ -54,8 +54,8 @@ const ListenerLogin = (props) => {
         <Button type='submit' color='green'>Submit</Button>
       </Form>
       <br/>
-      <Button name="new listener" onClick={() => props.newListener()} color='blue'>New Listener</Button>
-      <Button name="back_to_home" onClick={() => props.backToHome()} color='red' >Back</Button>
+      <Button name="newListener" onClick={() => props.newListener()} color='blue'>New Listener</Button>
+      <Button name="backToHome" onClick={() => props.backToHome()} color='red' >Back</Button>
     </div>
   )
 }
