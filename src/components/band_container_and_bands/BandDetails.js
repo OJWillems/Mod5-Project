@@ -38,6 +38,7 @@ class BandDetails extends Component {
   setSpecificFavoriteObjectState = () => {
     let specificFavoriteObject = null;
     let specificFavoriteObj = this.props.allFavorites.find((favoriteObj) => {
+      console.log("allFavorites: ", this.props.allFavorites)
       return favoriteObj.band_id === this.props.selectedBand.id && favoriteObj.listener_id === this.props.loggedInListener.id
     })
     if (specificFavoriteObj !== undefined) {

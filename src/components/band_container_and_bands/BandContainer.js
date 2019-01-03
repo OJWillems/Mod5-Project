@@ -6,6 +6,8 @@ import BandPreview from './BandPreview'
 
 import { List, Button } from 'semantic-ui-react'
 
+const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
+
 class BandContainer extends Component {
 
   state = {
@@ -13,14 +15,17 @@ class BandContainer extends Component {
     hoveredBandObj: this.props.allBands[0],
   }
 
-  getListenerFavorites = () => {
+  getListenerFavoriteBandsAndAllFavoriteObjects = () => {
     fetch(this.props.loggedInListenerAPI)
       .then(resp => resp.json())
       .then(favoritesResp => this.props.setAllListenerFavorites(favoritesResp))
+    fetch(favoritesAPI)
+      .then(resp => resp.json())
+      .then(favoritesResp => this.props.allFavorites(favoritesResp))
   }
 
   componentDidMount() {
-    this.getListenerFavorites();
+    this.getListenerFavoriteBandsAndAllFavoriteObjects();
   }
 
   mapBands = () => {
@@ -57,7 +62,7 @@ class BandContainer extends Component {
   }
 
   onMouseOverHandler = (bandObj) => {
-    this.setState({hoveredBandObj: bandObj}, () => console.log(this.state.hoveredBandObj))
+    this.setState({hoveredBandObj: bandObj})
   }
 
   renderBandPreview = () => {
@@ -81,6 +86,23 @@ class BandContainer extends Component {
 
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAllListenerFavorites: (favoritesResp) => {
+      dispatch({
+        type: "GET_ALL_LISTENER_FAVORITES",
+        payload: favoritesResp.favorites
+      })
+    },
+    allFavorites: (favoritesResp) => {
+      dispatch({
+        type: "GET_ALL_FAVORITES",
+        payload: favoritesResp.favorites
+      })
+    }
+  }
+}
+
 const mapStateToProps = (state) => {
   return {
     allBands: state.allBands,
@@ -90,15 +112,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setAllListenerFavorites: (favoritesResp) => {
-      dispatch({
-        type: "GET_ALL_LISTENER_FAVORITES",
-        payload: favoritesResp.favorites
-      })
-    }
-  }
-}
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(BandContainer);

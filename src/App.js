@@ -16,7 +16,6 @@ import QuestionsContainer from './components/question_and_answer/QuestionsContai
 
 const bandsAPI = 'http://localhost:4000/api/v1/bands';
 const listenersAPI = 'http://localhost:4000/api/v1/listeners';
-const favoritesAPI = 'http://localhost:4000/api/v1/favorites';
 
 class App extends Component {
 
@@ -42,9 +41,6 @@ class App extends Component {
     fetch(listenersAPI)
       .then(resp => resp.json())
       .then(listenersResp => this.props.allListeners(listenersResp))
-    fetch(favoritesAPI)
-      .then(resp => resp.json())
-      .then(favoritesResp => this.props.allFavorites(favoritesResp))
   }
 
   componentDidMount() {
@@ -175,12 +171,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "GET_ALL_LISTENERS",
         payload: listenersResp.listeners
-      })
-    },
-    allFavorites: (favoritesResp) => {
-      dispatch({
-        type: "GET_ALL_FAVORITES",
-        payload: favoritesResp.favorites
       })
     },
     signUpListenerRedirect: (signedUpListenerObj) => {
