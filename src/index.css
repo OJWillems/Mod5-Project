@@ -56,10 +56,10 @@ code {
   display: block;
   margin: auto;
   font-size: 50px;
-  width: 87%;
+  width: 56%;
   position: absolute;
   top: 55%;
-  left: 6%;
+  left: 22%;
 }
 
 .startHomeButtonBand {
@@ -244,9 +244,53 @@ code {
 /* Question Container */
 
 .questionsContainerHeader{
-  
+  display: block;
+  margin: auto;
+  width: 35%;
+  position: absolute;
+  top: 12%;
+  left: 25%;
 }
 
-.answerDeleteBackButtons{
+.questionContainerBackButton{
+  display: block;
+  margin: auto;
+  position: absolute;
+  top: 17%;
+  left: 25%;
+}
 
+.questionContainer{
+  display: block;
+  margin: auto;
+  width: 35%;
+  position: absolute;
+  top: 22%;
+  left: 25%;
+}
+
+.questionObj{
+
+}
+
+.answerDeleteButtons{
+
+}
+
+.answerFormDiv {
+  display: block;
+  margin: auto;
+  width: 35%;
+  position: absolute;
+  top: 22%;
+  left: 50%;
+}
+
+.answerFormLabelHeader{
+  display: block;
+  margin: auto;
+  width: 35%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
 }

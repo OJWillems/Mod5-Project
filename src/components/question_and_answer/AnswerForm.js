@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {Form, TextArea, Button} from 'semantic-ui-react';
+
+
 const answersAPI = "http://localhost:4000/api/v1/answers"
 // need this API: http://localhost:4000/api/v1/questions/<questionID>
 
@@ -41,15 +44,20 @@ const AnswerForm = (props) => {
   const renderForm = () => {
     if (props.questionAsked === true) {
       return (
-        <form onSubmit={(event) => {
-          submitAnswerHandler(event)
-        }}>
-          <label>
-            Answer: <textarea type="textarea" name="answer_form" />
-          </label>
-          <br/>
-          <input type="submit" value="Submit" />
-        </form>
+        <div>
+          <div className="answerFormDiv">
+            <Form onSubmit={(event) => submitAnswerHandler(event)}>
+              <Form.Field>
+                <TextArea placeholder="Write Your Answer" style={
+                  {minHeight: 10000},
+                  {minWidth: 10000},
+                  {maxWidth: 10000}
+                } name="answer_form"/>
+              </Form.Field>
+              <Button type='submit' color='green' value="Submit">Submit</Button>
+            </Form>
+          </div>
+        </div>
       )
     }
   }

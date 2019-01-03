@@ -44,7 +44,7 @@ class BandContainer extends Component {
 
   renderFavoritesButton = () => {
     if (this.state.shouldDisplayFavorites === false) {
-      return <Button color="purple" name="only_display_favorites" onClick={() => this.displayFavoriteBands()} className="displayFavoritesButton">Favorites</Button>
+      return <Button color="purple" name="only_display_favorites" onClick={() => this.displayFavoriteBands()} className="displayFavoritesButton">Following</Button>
     } else {
       return <Button color="purple" name="display_all_bands" onClick={() => this.displayFavoriteBands()} className="displayFavoritesButton">All Bands</Button>
     }

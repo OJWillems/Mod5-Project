@@ -12,9 +12,8 @@ const QuestionsContainer = (props) => {
       return props.allBandsQuestions.map((questionObj) => {
         if (questionObj.has_answered === false) {
           return (
-            <div key={questionObj.id}>
+            <div key={questionObj.id} >
               < Question questionObj={questionObj} />
-              <br/>
             </div>
           )
         }
@@ -25,8 +24,8 @@ const QuestionsContainer = (props) => {
   return (
     <div>
       <h1 className="questionsContainerHeader">All Your Unanswered Questions:</h1>
-      {mapBandsQuestions()}
-      <Button color="purple" size="mini" name="go_back_to_band_details" onClick={() => props.goBackToBandDetails()} >Back to Band Page</Button>
+      <Button color="purple" size="small" name="go_back_to_band_details" onClick={() => props.goBackToBandDetails()} className="questionContainerBackButton">Back to Band Page</Button>
+      <div className="questionContainer">{mapBandsQuestions()}</div>
     </div>
   )
 }
