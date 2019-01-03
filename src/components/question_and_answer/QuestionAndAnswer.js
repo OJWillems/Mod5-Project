@@ -21,9 +21,9 @@ class QuestionAndAnswer extends Component {
   renderAnswer = () => {
     if (this.state.answerObject != null) {
       return (
-        <div>
-          <h3>{this.props.questionObj.question_response}</h3>
-          <p>{this.state.answerObject.answer.answer_response}</p>
+        <div className="bandDetailsQuestionAndAnswerDiv">
+          <h3 className="bandDetailsQuestionHeader">{this.props.questionObj.question_response}</h3>
+          <p className="bandDetailsAnswer">{this.state.answerObject.answer.answer_response}</p>
           <br/>
         </div>
       )

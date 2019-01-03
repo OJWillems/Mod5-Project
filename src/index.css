@@ -38,7 +38,7 @@ code {
   box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 100px 0 rgba(0, 0, 0, 0.19);
   position:absolute;
   top: 35%;
-  left: 28%;
+  left: 30%;
 }
 
 .startHomeHeader {
@@ -131,13 +131,23 @@ code {
 }
 
 .bandPreviewComponent {
-  display: block;
+  width: 50%;
+  float: right;
+  left: 4%;
+  padding-top: 60px;
+  padding-right: 80px;
+}
+
+.bandPreviewMembers{
+  font-size: 30pt;
   margin: auto;
-  /* font-size: 50px; */
-  width: 40%;
-  position: absolute;
-  top: 5%;
-  left: 45%;
+  padding-top: 15px;
+}
+
+.bandPreviewBio{
+  padding-right: 2.5%;
+  padding-top: 10pt;
+  font-size: 13pt;
 }
 
 /* Band Component */
@@ -152,93 +162,108 @@ code {
 
 /* Band Details */
 
+.bandDetailsLeft{
+  display: block;
+  margin: auto;
+  width: 47%;
+  float: left;
+  padding-top: 60px;
+  padding-left: 80px;
+  max-height: 1150px;
+  overflow: scroll
+}
+
 .bandDetailsHeader{
   display: block;
   margin: auto;
-  /* font-size: 50px; */
-  width: 40%;
-  position: absolute;
-  top: 5%;
-  left: 5%;
+  font-size: 50px;
+  position: relative;
 }
 
-.bandDetailsImage{
-  display: block;
+.genreHeader{
   margin: auto;
-  /* font-size: 50px; */
-  width: 40%;
-  position: absolute;
-  top: 9.6%;
-  left: 45%;
-}
-
-.followUnfollowButton{
-  width: 7.15%;
-  position: absolute;
-  top: 64%;
-  left: 45%;
-}
-
-.viewQuestionsButton{
-  width: 7.15%;
-  position: absolute;
-  top: 64%;
-  left: 45%;
-}
-
-.askAQuestionButton{
-  width: 7.15%;
-  position: absolute;
-  top: 64%;
-  left: 53%;
-}
-
-.goBackToBandsButton{
-  width: 7.15%;
-  position: absolute;
-  top: 64%;
-  left: 61%;
-}
-
-.bandDetailsBioHeader{
-  display: block;
-  margin: auto;
-  /* font-size: 50px; */
-  width: 40%;
-  position: absolute;
-  top: 68.7%;
-  left: 45%;
-  font-size: 20pt;
-}
-
-.bandDetailsBio{
-  display: block;
-  margin: auto;
-  /* font-size: 50px; */
-  width: 40%;
-  position: absolute;
-  top: 73%;
-  left: 45%;
+  font-size: 28px;
+  padding-top: 11px;
+  color: #898585;
 }
 
 .qAndAHeader{
   display: block;
   margin: auto;
-  /* font-size: 50px; */
-  width: 40%;
-  position: absolute;
-  top: 9.5%;
-  left: 5%;
-  font-size: 20pt;
+  padding-top: 2%;
+  font-size: 22pt;
 }
 
 .qAndAContainerDiv{
-  display: block;
+  padding-top: 2%;
+  padding-right: 2%;
+}
+
+.bandDetailsQuestionAndAnswerDiv{
+
+}
+
+.bandDetailsQuestionHeader{
+  font-size: 15pt;
+}
+
+.bandDetailsAnswer{
+  font-size: 11.5pt;
+}
+
+.bandDetailsRight{
+  width: 50%;
+  float: right;
+  left: 4%;
+  padding-top: 60px;
+  padding-right: 80px;
+
+}
+
+.bandDetailsImage{
+  max-height: 590px;
+  overflow: hidden;
+}
+
+.bandMembersHeader{
+  font-size: 20pt;
   margin: auto;
-  width: 35%;
-  position: absolute;
-  top: 14%;
-  left: 5%;
+  padding-top: 15px;
+}
+
+.listenerBandDetailsButtons{
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+}
+
+.followUnfollowButton{
+  width: 170px;
+}
+
+.askAQuestionButton{
+  width: 170px;
+}
+
+.goBackToBandsButton{
+  width: 170px;
+}
+
+.viewQuestionsButton{
+  padding-top: 20px;
+}
+
+.bandDetailsBioHeader{
+  /* display: block; */
+  margin: auto;
+  font-size: 20pt;
+  padding-top: 15px;
+}
+
+.bandDetailsBio{
+  padding-right: 2.5%;
+  padding-top: 15pt;
+  font-size: 13pt;
 }
 
 /* Question Container */

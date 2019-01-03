@@ -181,17 +181,25 @@ class BandDetails extends Component {
   render() {
     return(
       <div>
-        <h1 className="bandDetailsHeader">{this.props.selectedBand.band_name}</h1>
-        <div className="bandDetailsImage"><Image src={this.props.selectedBand.img_url} alt={this.props.selectedBand.band_name} size="massive" /></div>
+        <div className="bandDetailsLeft">
+          <h1 className="bandDetailsHeader">{this.props.selectedBand.band_name}</h1>
+          <h4 className="genreHeader">{this.props.selectedBand.genre}</h4>
+          <h4 className="qAndAHeader">Q&A:</h4>
+          <div className="qAndAContainerDiv">{this.renderAnsweredQuestions()}</div>
+        </div>
+        <div className="bandDetailsRight">
+          <div className="bandDetailsImage"><Image src={this.props.selectedBand.img_url} alt={this.props.selectedBand.band_name} size="massive" /></div>
+          <div className="listenerBandDetailsButtons">
+            {this.renderFollowButton()}
+            {this.renderQuestionButton()}
+            {this.renderGoBackToBandsContainer()}
+          </div>
+          {this.showQuestions()}
+          <h4 className="bandMembersHeader">{this.props.selectedBand.band_members}</h4>
+          <h4 className="bandDetailsBioHeader">Bio:</h4>
+          <p className="bandDetailsBio">{this.props.selectedBand.bio}</p>
+        </div>
         <br/>
-        <h4 className="bandDetailsBioHeader">Bio:</h4>
-        <p className="bandDetailsBio">{this.props.selectedBand.bio}</p>
-        {this.renderFollowButton()}
-        {this.renderQuestionButton()}
-        {this.renderGoBackToBandsContainer()}
-        {this.showQuestions()}
-        <h4 className="qAndAHeader">Q&A:</h4>
-        <div className="qAndAContainerDiv">{this.renderAnsweredQuestions()}</div>
       </div>
     )
   }
